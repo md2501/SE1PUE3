@@ -21,28 +21,6 @@ package "Controller" {
 Spieler <|-- Mensch
 }
 
-note "Koordinaten dienen nur als Schnittstelle zum menschl. Spieler,\nintern arbeiten wir mit einem Array von Feldern und deren Index" as nKoord
-
-note "Jede Figur hat je eine Liste mit validen Feldern\nzur Bewegung und zum Angriff.\n" as nFListe
-
-note "Ist der Angreifer ein Magier\nsind bis zu 3 Verteidiger möglich." as nMagier
-
-note "Dies ist die ausführende Klasse, die den Spielablauf strukturiert\nund die Spieler verwaltet." as nSpiel
-
-note "Jede Figur weiß auf welchem Feld sie steht und jedes Feld weiß ob/was auf ihm steht.\nBei Bewegung müssen sowohl die Figur als auch die entspr. Felder geupdatet werden." as nBewegung
-
-Spielbrett .. nKoord
-Feld .. nKoord
-Mensch .. nKoord
-
-Figur .. nFListe
-
-Kampf .. nMagier
-
-Spiel .. nSpiel
-
-Feld .. nBewegung
-Figur .. nBewegung
 
 class  Spiel {
     -spieler1: Spieler
@@ -80,6 +58,7 @@ class HardKI {
 }
 
 
+package "Model" {
 class Kampf {
     -angreifer: Figur
     -verteidiger: Figur[]
@@ -92,7 +71,7 @@ enum Angriffsart {
     PAPIER
     +schlägt(Angriffsart): boolean
 }
-
+}
 class Spielobjekt <<abstract>>{
     -feld: Feld
     -symbol: String
@@ -151,4 +130,26 @@ class Feld {
     -inhalt: Spielobjekt
     +isEmpty(): boolean
 }
+note "Koordinaten dienen nur als Schnittstelle zum menschl. Spieler,\nintern arbeiten wir mit einem Array von Feldern und deren Index" as nKoord
+
+note "Jede Figur hat je eine Liste mit validen Feldern\nzur Bewegung und zum Angriff.\n" as nFListe
+
+note "Ist der Angreifer ein Magier\nsind bis zu 3 Verteidiger möglich." as nMagier
+
+note "Dies ist die ausführende Klasse, die den Spielablauf strukturiert\nund die Spieler verwaltet." as nSpiel
+
+note "Jede Figur weiß auf welchem Feld sie steht und jedes Feld weiß ob/was auf ihm steht.\nBei Bewegung müssen sowohl die Figur als auch die entspr. Felder geupdatet werden." as nBewegung
+
+Spielbrett .. nKoord
+Feld .. nKoord
+Mensch .. nKoord
+
+Figur .. nFListe
+
+
+Spiel .. nSpiel
+
+Feld .. nBewegung
+Figur .. nBewegung
+Kampf .. nMagier
 @enduml
