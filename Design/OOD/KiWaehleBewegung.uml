@@ -28,9 +28,18 @@ partition "Ki Waehle Bewegung" {
     if () then ([Alle Bewegungsmöglichkeiten haben 0 Punkte])
         :Wähle Bewegungsmöglichkeit mit geringster Distanz zu gegnerischem Held;
     else ([Bewegungsmöglichkeiten mit != 0 Punkten existieren])
-        :Wähle Bewegungsmöglichkeit mit höchster Punktzahl;
+        if () then ([Mehrere Bewegungsmöglichkeiten haben die gleiche Punktzahl])
+            if () then ([Andere Helden haben bereits Bewegung gewählt])
+                :Wähle die Bewegungsmöglichkeiten am Nähesten zu bereits gewählten anderer Helden;
+            else ([Erster Held])
+                :Wähle zufällige höchstpunktige Bewegungsmöglichkeit;
+            endif
+        else ([Nur eine Bewegungsmöglichkeit mit höchster Punktzahl])
+            :Wähle Bewegungsmöglichkeit mit höchster Punktzahl;
+        endif
     endif
     note right: Hier wäre zu überlegen ob man nicht die besten paar Ergebnisse\n noch mit den anderen Helden krossreferenziert so das wenige gegnerische Helden gefocused werden.\n Auch könnte man die Leben der potentiellen gegnerischen Ziele mit einbeziehen.
 
+stop
 }
 @enduml
